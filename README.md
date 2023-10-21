@@ -22,7 +22,7 @@ Model-Driven Event Management App! Seamlessly orchestrate, streamline, and eleva
 
 Version|Date|Comments
 -------|----|--------
-1.0|September 25, 2023|Initial release
+1.0|August 13, 2023|Initial release
 
 ## Prerequisites
 
