@@ -1,0 +1,98 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "sa_configurations",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "sa_configuration",
+    "MaxGetRowsCount": 500,
+    "Name": "Configurations",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "sa_configuration_AsyncOperations": "System Jobs",
+      "sa_configuration_BulkDeleteFailures": "Bulk Delete Failures",
+      "sa_configuration_DuplicateBaseRecord": "Duplicate Records (sa_configuration_DuplicateBaseRecord)",
+      "sa_configuration_DuplicateMatchingRecord": "Duplicate Records (sa_configuration_DuplicateMatchingRecord)",
+      "sa_configuration_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "sa_configuration_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "sa_configuration_ProcessSession": "Process Sessions",
+      "sa_configuration_SyncErrors": "Sync Errors",
+      "sa_configurationid": "Configuration",
+      "sa_key": "Key",
+      "sa_value": "Value",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Configurations",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Configurations (Views)",
+    "Name": "_sa_configuration_views",
+    "RelatedEntityName": "Configurations",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "168dedeb-d7be-43f1-b771-d69f5e82393e": "Active Configurations",
+      "1ce95294-bf61-41b2-8092-608fd0be6abc": "Configuration Advanced Find View",
+      "aef113ba-b8ee-4211-9ee5-c5907c622e91": "Configuration Lookup View",
+      "bc744d3c-92d3-4a78-9d44-6c45fad95ee5": "Inactive Configurations",
+      "f6a8586d-a41c-4d2f-9b13-7631c410f54e": "Configuration Associated View"
+    }
+  },
+  {
+    "DisplayName": "Status (Configurations)",
+    "Name": "sa_configuration_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Configurations"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Configurations",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Configurations)",
+    "Name": "sa_configuration_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Configurations"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Configurations",
+    "Type": "OptionSetInfo"
+  }
+]

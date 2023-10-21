@@ -1,0 +1,37 @@
+<appaction uniquename="sa__ConverttoDraft!2fdf20bd5ad24e8e9fa7d1f74dd265fb!sa_EventManagement!sa_template!0">
+  <appmoduleid>
+    <uniquename>sa_EventManagement</uniquename>
+  </appmoduleid>
+  <buttonlabeltext default="Convert to Draft">
+    <label description="Convert to Draft" languagecode="1033" />
+  </buttonlabeltext>
+  <context>1</context>
+  <contextentity>
+    <logicalname>sa_template</logicalname>
+  </contextentity>
+  <contextvalue>sa_template</contextvalue>
+  <fonticon>Letter</fonticon>
+  <hidden>0</hidden>
+  <iscustomizable>1</iscustomizable>
+  <isdisabled>0</isdisabled>
+  <isgrouptitlehidden>0</isgrouptitlehidden>
+  <location>0</location>
+  <name>ConverttoDraft!2fdf20bd5ad24e8e9fa7d1f74dd265fb</name>
+  <onclickeventformulacomponentlibraryid>
+    <name>sa_eventmanagementdefaultcommandlibrary_bbbe5</name>
+  </onclickeventformulacomponentlibraryid>
+  <onclickeventformulacomponentname>5d7fb40db89640a6ad35fba10e4c3e3c</onclickeventformulacomponentname>
+  <onclickeventformulafunctionname>OnSelect</onclickeventformulafunctionname>
+  <onclickeventtype>1</onclickeventtype>
+  <origin>0</origin>
+  <sequence>100100017.5000000000</sequence>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+  <type>0</type>
+  <visibilityformulacomponentlibraryid>
+    <name>sa_eventmanagementdefaultcommandlibrary_bbbe5</name>
+  </visibilityformulacomponentlibraryid>
+  <visibilityformulacomponentname>5d7fb40db89640a6ad35fba10e4c3e3c</visibilityformulacomponentname>
+  <visibilityformulafunctionname>Visible</visibilityformulafunctionname>
+  <visibilitytype>1</visibilitytype>
+</appaction>

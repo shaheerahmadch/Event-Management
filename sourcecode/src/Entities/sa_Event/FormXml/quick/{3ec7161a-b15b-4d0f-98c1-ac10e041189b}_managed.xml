@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{3ec7161a-b15b-4d0f-98c1-ac10e041189b}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab verticallayout="true" id="{c88243bd-cddd-4afe-b3c4-4449e06f31c7}" IsUserDefined="1">
+          <labels>
+            <label description="" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{5b41f82c-58da-4d2d-8b23-97606a44ab34}">
+                  <labels>
+                    <label description="GENERAL" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{df4a91b3-c06a-4a3c-b152-16dcade987a7}">
+                        <labels>
+                          <label description="Name" languagecode="1033" />
+                        </labels>
+                        <control id="sa_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sa_name" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{38d99f6a-f1bf-4070-9c0a-5a4ba70e7305}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Description" languagecode="1033" />
+                        </labels>
+                        <control id="sa_description" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="sa_description" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{022a2561-2992-4542-bc8c-798c92a81b66}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Start" languagecode="1033" />
+                        </labels>
+                        <control id="sa_start" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="sa_start" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{7b212e88-3326-4244-88d2-4212df2fe5c4}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Status Reason" languagecode="1033" />
+                        </labels>
+                        <control id="statuscode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="statuscode" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{d76067b6-be8f-47f7-836a-0a850ecd6300}" visible="false">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+  </systemform>
+</forms>

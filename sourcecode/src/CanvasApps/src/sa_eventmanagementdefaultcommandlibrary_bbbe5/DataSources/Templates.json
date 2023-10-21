@@ -1,0 +1,103 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "sa_templates",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "sa_template",
+    "MaxGetRowsCount": 500,
+    "Name": "Templates",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "sa_bodyplaintext": "Body (Plain Text)",
+      "sa_name": "Name",
+      "sa_sa_event_TemplateAlreadyExist_sa_template": "Events (sa_sa_event_TemplateAlreadyExist_sa_template)",
+      "sa_sa_event_TemplateMeetingInvite_sa_templat": "Events (sa_sa_event_TemplateMeetingInvite_sa_templat)",
+      "sa_sa_event_TemplateSendCertificate_sa_templ": "Events (sa_sa_event_TemplateSendCertificate_sa_templ)",
+      "sa_sa_event_TemplateThankYou_sa_template": "Events (sa_sa_event_TemplateThankYou_sa_template)",
+      "sa_subject": "Subject",
+      "sa_template_AsyncOperations": "System Jobs",
+      "sa_template_BulkDeleteFailures": "Bulk Delete Failures",
+      "sa_template_DuplicateBaseRecord": "Duplicate Records (sa_template_DuplicateBaseRecord)",
+      "sa_template_DuplicateMatchingRecord": "Duplicate Records (sa_template_DuplicateMatchingRecord)",
+      "sa_template_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "sa_template_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "sa_template_ProcessSession": "Process Sessions",
+      "sa_template_SyncErrors": "Sync Errors",
+      "sa_templateid": "Template",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Templates",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Templates (Views)",
+    "Name": "_sa_template_views",
+    "RelatedEntityName": "Templates",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "0bffc3f9-8e73-4b9c-9134-59ac19045b40": "Template Associated View",
+      "2b60e06a-54b4-4a16-b36c-f6d37ab369b0": "Template Lookup View",
+      "47925ee5-5a65-4113-ba60-03a1b10ad4c6": "Template Advanced Find View",
+      "c40a4872-2e08-407b-937e-2d9dc82ee5df": "Published Templates",
+      "dfef0980-00a6-4b02-a1e4-5be919135c1b": "Draft Templates"
+    }
+  },
+  {
+    "DisplayName": "Status (Templates)",
+    "Name": "sa_template_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Templates"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Templates",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Templates)",
+    "Name": "sa_template_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Draft",
+      "2": "Published"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Templates"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Templates",
+    "Type": "OptionSetInfo"
+  }
+]

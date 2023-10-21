@@ -1,0 +1,124 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "sa_eventattendees",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "sa_eventattendee",
+    "MaxGetRowsCount": 500,
+    "Name": "Registrations",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "createdby": "Created By",
+      "createdon": "Registered On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "sa_Attendee": "Attendee",
+      "sa_certificate": "Certificate",
+      "sa_Event": "Event",
+      "sa_eventattendee_AsyncOperations": "System Jobs",
+      "sa_eventattendee_BulkDeleteFailures": "Bulk Delete Failures",
+      "sa_eventattendee_DuplicateBaseRecord": "Duplicate Records (sa_eventattendee_DuplicateBaseRecord)",
+      "sa_eventattendee_DuplicateMatchingRecord": "Duplicate Records (sa_eventattendee_DuplicateMatchingRecord)",
+      "sa_eventattendee_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "sa_eventattendee_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "sa_eventattendee_ProcessSession": "Process Sessions",
+      "sa_eventattendee_SyncErrors": "Sync Errors",
+      "sa_eventattendeeid": "Event Attendee",
+      "sa_id": "ID",
+      "statecode": "Status",
+      "statuscode": "Attendence",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Registrations",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Registrations (Views)",
+    "Name": "_sa_eventattendee_views",
+    "RelatedEntityName": "Registrations",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "0a747d73-413f-ee11-bdf3-002248595bba": "Absent Registrations",
+      "0cfdce6c-7b7e-448f-ae27-c2eecc5b3eaf": "Event Attendee Associated View",
+      "190b5772-dc77-422a-bf04-24caa564a1a2": "Event Attendee Advanced Find View",
+      "2fb51f25-e13f-ee11-bdf3-002248595bba": "All Registrations",
+      "91582fb0-4662-4bf3-b9ac-342dfc0703d8": "Present Registrations",
+      "ad801c6a-d18f-4c7e-87ce-fd34974d1ee2": "Event Attendee Lookup View",
+      "ed5e4bdf-a1ff-4b3b-8557-54f55da45925": "Pending Registrations"
+    }
+  },
+  {
+    "DisplayName": "Certificate (Registrations)",
+    "Name": "sa_eventattendee_sa_certificate",
+    "OptionSetInfoNameMapping": {
+      "0": "Pending",
+      "1": "Sent",
+      "2": "Failed"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "sa_certificate",
+        "OptionSetReferenceEntityName": "Registrations"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "sa_certificate",
+    "RelatedEntityName": "Registrations",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Registrations)",
+    "Name": "sa_eventattendee_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Registrations"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Registrations",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Attendence (Registrations)",
+    "Name": "sa_eventattendee_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Pending",
+      "126380001": "Absent",
+      "2": "Present"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Registrations"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Registrations",
+    "Type": "OptionSetInfo"
+  }
+]

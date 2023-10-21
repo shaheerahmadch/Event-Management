@@ -1,0 +1,403 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "sa_sharedcommondataserviceforapps_df72c"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_office365": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "sa_sharedoffice365_755b9"
+        },
+        "api": {
+          "name": "shared_office365"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "36d87207-e9fc-44ad-822f-f1c496de8b4d"
+          },
+          "type": "Request",
+          "kind": "Button",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "Event Name",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "List_Event": {
+          "runAfter": {
+            "Initialize_variable_2": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "cc9a6bf9-5b89-41bc-923c-2e54e7c347c4"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "sa_events",
+              "$filter": "sa_name eq '@{triggerBody()['text']}'",
+              "$top": 1
+            },
+            "authentication": {
+              "type": "Raw",
+              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+            }
+          }
+        },
+        "Condition": {
+          "actions": {
+            "Condition_2": {
+              "actions": {
+                "List_Attendees": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "e3c025e1-d27f-4f18-b453-1c983b040a26"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "ListRecords",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "entityName": "sa_eventattendees",
+                      "$filter": "_sa_event_value eq @{outputs('List_Event')?['body/value']?[0]?['sa_eventid']}"
+                    },
+                    "authentication": {
+                      "type": "Raw",
+                      "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                    }
+                  }
+                },
+                "Condition_3": {
+                  "actions": {
+                    "Apply_to_each": {
+                      "foreach": "@outputs('List_Attendees')?['body/value']",
+                      "actions": {
+                        "Get_Person": {
+                          "runAfter": {},
+                          "metadata": {
+                            "operationMetadataId": "c01b8705-7d9a-42f8-82ad-b1d02019b5ae"
+                          },
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "host": {
+                              "connectionName": "shared_commondataserviceforapps",
+                              "operationId": "GetItem",
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                            },
+                            "parameters": {
+                              "entityName": "contacts",
+                              "recordId": "@items('Apply_to_each')?['_sa_attendee_value']"
+                            },
+                            "authentication": {
+                              "type": "Raw",
+                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                            }
+                          }
+                        },
+                        "Compose": {
+                          "runAfter": {
+                            "Get_Person": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "4cf57d1f-7167-4c98-aa9e-acd768c08bc8"
+                          },
+                          "type": "Compose",
+                          "inputs": "@{outputs('Get_Person')?['body/fullname']}\n@{outputs('Get_Person')?['body/emailaddress1']}"
+                        },
+                        "Increment_variable": {
+                          "runAfter": {
+                            "Send_an_email_(V2)": [
+                              "Succeeded",
+                              "Failed",
+                              "Skipped",
+                              "TimedOut"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "c1b48384-4b63-41e4-b96b-da2477a2a4c2"
+                          },
+                          "type": "IncrementVariable",
+                          "inputs": {
+                            "name": "varInvitesCount",
+                            "value": 1
+                          }
+                        },
+                        "Get_Email_Template": {
+                          "runAfter": {
+                            "Compose": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "d1ee6008-ac4b-4ae2-af7f-ccd96151a3b9"
+                          },
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "host": {
+                              "connectionName": "shared_commondataserviceforapps",
+                              "operationId": "GetItem",
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                            },
+                            "parameters": {
+                              "entityName": "sa_templates",
+                              "recordId": "@first(outputs('List_Event')?['body/value'])?['_sa_templatesendcertificate_value']"
+                            },
+                            "authentication": {
+                              "type": "Raw",
+                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                            }
+                          }
+                        },
+                        "Send_an_email_(V2)": {
+                          "runAfter": {
+                            "Get_Email_Template": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "ab07ca4c-8c4c-431a-9af4-8d0d50a001c3"
+                          },
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "host": {
+                              "connectionName": "shared_office365",
+                              "operationId": "SendEmailV2",
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+                            },
+                            "parameters": {
+                              "emailMessage/To": "@outputs('Get_Person')?['body/emailaddress1']",
+                              "emailMessage/Subject": "@outputs('Get_Email_Template')?['body/sa_subject']",
+                              "emailMessage/Body": "@outputs('Get_Email_Template')?['body/sa_bodyplaintext']",
+                              "emailMessage/Importance": "Normal"
+                            },
+                            "authentication": {
+                              "type": "Raw",
+                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                            }
+                          }
+                        }
+                      },
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "dd21d86b-80c9-4129-8db5-468d1e567bf2"
+                      },
+                      "type": "Foreach"
+                    }
+                  },
+                  "runAfter": {
+                    "List_Attendees": [
+                      "Succeeded"
+                    ]
+                  },
+                  "else": {
+                    "actions": {
+                      "Set_variable_3": {
+                        "runAfter": {},
+                        "metadata": {
+                          "operationMetadataId": "91eeb185-733f-448e-8571-ea11b45e1b72"
+                        },
+                        "type": "SetVariable",
+                        "inputs": {
+                          "name": "varMessage",
+                          "value": "No Attendees Found"
+                        }
+                      }
+                    }
+                  },
+                  "expression": {
+                    "greater": [
+                      "@length(outputs('List_Attendees')?['body/value'])",
+                      0
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "7bc4cf56-96bd-499d-8ee1-0ed3b52a5439"
+                  },
+                  "type": "If"
+                }
+              },
+              "runAfter": {},
+              "else": {
+                "actions": {
+                  "Set_variable_2": {
+                    "runAfter": {},
+                    "metadata": {
+                      "operationMetadataId": "1a2ef1de-ced7-4359-96bb-36e9f139569a"
+                    },
+                    "type": "SetVariable",
+                    "inputs": {
+                      "name": "varMessage",
+                      "value": "Event is not Published"
+                    }
+                  }
+                }
+              },
+              "expression": {
+                "equals": [
+                  "@outputs('List_Event')?['body/value']?[0]?['statuscode']",
+                  126380003
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "4281937e-dbbc-4e93-b85e-3c27bb8d3a42"
+              },
+              "type": "If"
+            }
+          },
+          "runAfter": {
+            "List_Event": [
+              "Succeeded"
+            ]
+          },
+          "else": {
+            "actions": {
+              "Set_variable": {
+                "runAfter": {},
+                "metadata": {
+                  "operationMetadataId": "240f9c8f-937b-4a1d-a7b7-513069b9a48e"
+                },
+                "type": "SetVariable",
+                "inputs": {
+                  "name": "varMessage",
+                  "value": "No Events Found"
+                }
+              }
+            }
+          },
+          "expression": {
+            "greater": [
+              "@length(outputs('List_Event')?['body/value'])",
+              0
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "abf6c376-5fdc-4760-b37c-504514ff1686"
+          },
+          "type": "If"
+        },
+        "Respond_to_a_PowerApp_or_flow": {
+          "runAfter": {
+            "Condition": [
+              "Succeeded",
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "6ede7a88-8f84-4ebe-806e-cbe211a14f5d"
+          },
+          "type": "Response",
+          "kind": "PowerApp",
+          "inputs": {
+            "statusCode": 200,
+            "body": {
+              "message": "@variables('varMessage')",
+              "invites": "@{variables('varInvitesCount')}"
+            },
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "title": "message",
+                  "x-ms-dynamically-added": true,
+                  "type": "string"
+                },
+                "invites": {
+                  "title": "invites",
+                  "x-ms-dynamically-added": true,
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "Initialize_variable": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "c8ecd20c-8789-4362-9465-232075aa7e9d"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "varMessage",
+                "type": "string",
+                "value": "success"
+              }
+            ]
+          }
+        },
+        "Initialize_variable_2": {
+          "runAfter": {
+            "Initialize_variable": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "70f38e59-eee7-4dcc-af57-f39bec98af66"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "varInvitesCount",
+                "type": "integer"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

@@ -1,0 +1,20 @@
+"'Publish Event_1' As CommandComponent":
+    AutoSave: =true
+    DataSource: =Events
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =0
+    Icon: =SampleImage
+    OnSelect: |-
+        =If(Confirm("Are you sure you want to publish this event?"),Patch(Events,Self.Selected.Item,{Status:'Status (Events)'.Active,'Status Reason':'Status Reason (Events)'.Published}))
+    Selected: |-
+        ={ Item: {}, AllItems:[], Unsaved: false, State: SelectedState.Edit }
+    SelectionMax: =100
+    SelectionMin: =100
+    Title: = 
+    Tooltip: = 
+    Visible: =Self.Selected.Item.'Status Reason' = 'Status Reason (Events)'.Draft
+    Width: =0
+    X: =0
+    Y: =0
+    ZIndex: =1
+

@@ -1,0 +1,20 @@
+"'Publish Template_8' As CommandComponent":
+    AutoSave: =true
+    DataSource: =Templates
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =0
+    Icon: =SampleImage
+    OnSelect: |-
+        =If(Confirm("Are you sure you want to Publish this template?"),  Patch(Templates,Self.Selected.Item,{Status:'Status (Templates)'.Inactive,'Status Reason':'Status Reason (Templates)'.Published}))
+    Selected: |-
+        ={ Item: {}, AllItems:[], Unsaved: false, State: SelectedState.Edit }
+    SelectionMax: =100
+    SelectionMin: =100
+    Title: = 
+    Tooltip: = 
+    Visible: =Self.Selected.Item.Status = 'Status (Templates)'.Active
+    Width: =0
+    X: =0
+    Y: =0
+    ZIndex: =1
+

@@ -1,0 +1,37 @@
+<appaction uniquename="sa__SendCertificate!1e6ad21a44f041b48686e0f3fb86bdda!sa_EventManagement!sa_eventattendee!0">
+  <appmoduleid>
+    <uniquename>sa_EventManagement</uniquename>
+  </appmoduleid>
+  <buttonlabeltext default="Send Certificate">
+    <label description="Send Certificate" languagecode="1033" />
+  </buttonlabeltext>
+  <context>1</context>
+  <contextentity>
+    <logicalname>sa_eventattendee</logicalname>
+  </contextentity>
+  <contextvalue>sa_eventattendee</contextvalue>
+  <fonticon>$clientsvg:Mail</fonticon>
+  <hidden>0</hidden>
+  <iscustomizable>1</iscustomizable>
+  <isdisabled>0</isdisabled>
+  <isgrouptitlehidden>0</isgrouptitlehidden>
+  <location>0</location>
+  <name>SendCertificate!1e6ad21a44f041b48686e0f3fb86bdda</name>
+  <onclickeventjavascriptfunctionname>sendCertificate</onclickeventjavascriptfunctionname>
+  <onclickeventjavascriptparameters>[{"type":5}]</onclickeventjavascriptparameters>
+  <onclickeventjavascriptwebresourceid>
+    <webresourceid>25ecc0c5-993a-ee11-bdf4-002248595bba</webresourceid>
+  </onclickeventjavascriptwebresourceid>
+  <onclickeventtype>2</onclickeventtype>
+  <origin>0</origin>
+  <sequence>100100017.5000000000</sequence>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+  <type>0</type>
+  <visibilityformulacomponentlibraryid>
+    <name>sa_eventmanagementdefaultcommandlibrary_bbbe5</name>
+  </visibilityformulacomponentlibraryid>
+  <visibilityformulacomponentname>9cb95ded674d4bf89e75ced4aeac9fd8</visibilityformulacomponentname>
+  <visibilityformulafunctionname>Visible</visibilityformulafunctionname>
+  <visibilitytype>1</visibilitytype>
+</appaction>

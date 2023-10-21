@@ -1,0 +1,40 @@
+<appaction uniquename="sa__MarkasPresent!d4b11bc4a8634c30838076663985f1bf!sa_EventManagement!sa_eventattendee!0">
+  <appmoduleid>
+    <uniquename>sa_EventManagement</uniquename>
+  </appmoduleid>
+  <buttonlabeltext default="Mark as Present">
+    <label description="Mark as Present" languagecode="1033" />
+  </buttonlabeltext>
+  <context>1</context>
+  <contextentity>
+    <logicalname>sa_eventattendee</logicalname>
+  </contextentity>
+  <contextvalue>sa_eventattendee</contextvalue>
+  <fonticon>$clientsvg:Accept</fonticon>
+  <hidden>0</hidden>
+  <iscustomizable>1</iscustomizable>
+  <isdisabled>0</isdisabled>
+  <isgrouptitlehidden>0</isgrouptitlehidden>
+  <location>0</location>
+  <name>MarkasPresent!d4b11bc4a8634c30838076663985f1bf</name>
+  <onclickeventformulacomponentlibraryid>
+    <name>sa_eventmanagementdefaultcommandlibrary_bbbe5</name>
+  </onclickeventformulacomponentlibraryid>
+  <onclickeventformulacomponentname>36a9416b8c68430d80a42a60a4195f01</onclickeventformulacomponentname>
+  <onclickeventformulafunctionname>OnSelect</onclickeventformulafunctionname>
+  <onclickeventtype>1</onclickeventtype>
+  <origin>0</origin>
+  <parentappactionid>
+    <uniquename>sa__Attendence!68a62a4c4206459e88985337aec2ff9b!sa_EventManagement!sa_eventattendee!0</uniquename>
+  </parentappactionid>
+  <sequence>10000.0000000000</sequence>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+  <type>0</type>
+  <visibilityformulacomponentlibraryid>
+    <name>sa_eventmanagementdefaultcommandlibrary_bbbe5</name>
+  </visibilityformulacomponentlibraryid>
+  <visibilityformulacomponentname>36a9416b8c68430d80a42a60a4195f01</visibilityformulacomponentname>
+  <visibilityformulafunctionname>Visible</visibilityformulafunctionname>
+  <visibilitytype>1</visibilitytype>
+</appaction>

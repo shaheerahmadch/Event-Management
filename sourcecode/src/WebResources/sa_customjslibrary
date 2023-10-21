@@ -1,0 +1,367 @@
+function eventOnLoad(executionContext) {
+    "use strict";
+    let formContext = executionContext.getFormContext();
+    if (formContext.getAttribute("statuscode").getValue() === 126380003) {
+        formContext.ui.setFormNotification("This Event is Published and cannot be edited. Convert this Event to draft in order to make changes", "INFO", "EVENT_PUBLISHED_INFO");
+    }
+    else {
+        formContext.ui.clearFormNotification("EVENT_PUBLISHED_INFO")
+    }
+
+}
+function sendInvite(primaryControl) {
+    "use strict";
+    var confirmStrings = { text: "Are you sure you want to send invites?.", title: "Confirm Sending Invites" };
+    var confirmOptions = { height: 200, width: 450 };
+    Xrm.Navigation.openConfirmDialog(confirmStrings, confirmOptions).then(
+        function (success) {
+            if (success.confirmed) {
+                var record = {};
+                record.sa_process = "Send Invites"; // Text
+                record.sa_meetinginvitesent = true; // Boolean
+
+                Xrm.WebApi.updateRecord("sa_event", primaryControl.data.entity.getId().toLowerCase().replace('{', '').replace('}', ''), record).then(
+                    function success(result) {
+                        var updatedId = result.id;
+                        primaryControl.data.refresh(false)
+                    },
+                    function (error) {
+                        Xrm.Navigation.openAlertDialog({ confirmButtonLabel: "OK", text: error.message , title: "Error" }, { height: 120, width: 260 });
+                    }
+                );
+            }
+        }
+    );
+}
+function sendCertificates(primaryControl) {
+    "use strict";
+    var confirmStrings = { text: "Are you sure you want to send certificates?.", title: "Confirm Sending Certificate" };
+    var confirmOptions = { height: 200, width: 450 };
+    Xrm.Navigation.openConfirmDialog(confirmStrings, confirmOptions).then(
+        function (success) {
+            if (success.confirmed) {
+                var record = {};
+                record.sa_process = "Send Certificates"; // Text
+                record.sa_certificatessent = true; // Boolean
+
+                Xrm.WebApi.updateRecord("sa_event", primaryControl.data.entity.getId().toLowerCase().replace('{', '').replace('}', ''), record).then(
+                    function success(result) {
+                        var updatedId = result.id;
+                        primaryControl.data.refresh(false)
+                    },
+                    function (error) {
+                        Xrm.Navigation.openAlertDialog({ confirmButtonLabel: "OK", text: error.message , title: "Error" }, { height: 120, width: 260 });
+                    }
+                );
+            }
+        }
+    );
+}
+function publishEvent(primaryControl) {
+    "use strict";
+    var confirmStrings = { text: "Are you sure you want to publish this event?.", title: "Confirm Publish" };
+    var confirmOptions = { height: 200, width: 450 };
+    Xrm.Navigation.openConfirmDialog(confirmStrings, confirmOptions).then(
+        function (success) {
+            if (success.confirmed) {
+                primaryControl.ui.setFormNotification("This Event is Published and cannot be edited. Convert this Event to draft in order to make changes", "INFO", "EVENT_PUBLISHED_INFO");
+
+                Xrm.WebApi.retrieveMultipleRecords("sa_event", "?$select=sa_eventid&$filter=(sa_registrationopen eq true and statecode eq 0 and statuscode eq 126380003)").then(
+                    function success(results1) {
+                        var sa_eventid;
+                        for (var i = 0; i < results1.entities.length; i++) {
+                            var result1 = results1.entities[i];
+                            // Columns
+                            sa_eventid = result1["sa_eventid"]; // Guid
+                        }
+                        if (results1.entities.length === 0) {
+                            var record = {};
+                            record.statecode = 0; // State
+                            record.statuscode = 126380003; // Status
+                            record.sa_registrationopen = true;
+                            Xrm.WebApi.updateRecord("sa_event", primaryControl.data.entity.getId().toLowerCase().replace('{', '').replace('}', ''), record).then(
+                                function success(result) {
+                                    var updatedId = result.id;
+                                    primaryControl.data.refresh(false)
+                                },
+                                function (error) {
+                                    Xrm.Navigation.openAlertDialog({ confirmButtonLabel: "OK", text: error.message , title: "Error" }, { height: 120, width: 260 });
+                                }
+                            );
+                        }
+                        else if (results1.entities.length > 0) {
+
+                            var confirmStrings = { text: "There is already a published event with open registration. Do you wish to close registration for the previous event?.", title: "Confirm Open Registration" };
+                            var confirmOptions = { height: 200, width: 450 };
+                            Xrm.Navigation.openConfirmDialog(confirmStrings, confirmOptions).then(
+                                function (success) {
+                                    if (success.confirmed) {
+                                        var record = {};
+                                        record.sa_registrationopen = false; // Boolean
+                                        Xrm.WebApi.updateRecord("sa_event", sa_eventid, record).then(
+                                            function success(result) {
+                                                var updatedId = result.id;
+                                                var record = {};
+                                                record.statecode = 0; // State
+                                                record.statuscode = 126380003; // Status
+                                                record.sa_registrationopen = true;
+                                                Xrm.WebApi.updateRecord("sa_event", primaryControl.data.entity.getId().toLowerCase().replace('{', '').replace('}', ''), record).then(
+                                                    function success(result) {
+                                                        var updatedId = result.id;
+                                                        primaryControl.data.refresh(false)
+                                                    },
+                                                    function (error) {
+                                                        Xrm.Navigation.openAlertDialog({ confirmButtonLabel: "OK", text: error.message , title: "Error" }, { height: 120, width: 260 });
+                                                    }
+                                                );
+                                            },
+                                            function (error) {
+                                                Xrm.Navigation.openAlertDialog({ confirmButtonLabel: "OK", text: error.message , title: "Error" }, { height: 120, width: 260 });
+                                            }
+                                        );
+                                    }
+                                    else {
+                                        var record = {};
+                                        record.statecode = 0; // State
+                                        record.statuscode = 126380003; // Status
+                                        record.sa_registrationopen = false;
+                                        Xrm.WebApi.updateRecord("sa_event", primaryControl.data.entity.getId().toLowerCase().replace('{', '').replace('}', ''), record).then(
+                                            function success(result) {
+                                                var updatedId = result.id;
+                                                primaryControl.data.refresh(false)
+                                            },
+                                            function (error) {
+                                                Xrm.Navigation.openAlertDialog({ confirmButtonLabel: "OK", text: error.message , title: "Error" }, { height: 120, width: 260 });
+                                            }
+                                        );
+                                    }
+                                },
+                                function (error) {
+                                    Xrm.Navigation.openAlertDialog({ confirmButtonLabel: "OK", text: error.message , title: "Error" }, { height: 120, width: 260 });
+                                }
+                            );
+
+                        }
+                    },
+                    function (error) {
+                        Xrm.Navigation.openAlertDialog({ confirmButtonLabel: "OK", text: error.message , title: "Error" }, { height: 120, width: 260 });
+                    }
+                );
+            }
+        }
+    );
+}
+function convertDraft(primaryControl) {
+    "use strict";
+    var confirmStrings = { text: "Are you sure you want to convert this event to draft?.", title: "Confirm Draft" };
+    var confirmOptions = { height: 200, width: 450 };
+    Xrm.Navigation.openConfirmDialog(confirmStrings, confirmOptions).then(
+        function (success) {
+            if (success.confirmed) {
+                primaryControl.ui.clearFormNotification("EVENT_PUBLISHED_INFO")
+
+                var record = {};
+                record.statecode = 0; // State
+                record.statuscode = 1; // Status
+                record.sa_registrationopen = false;
+                Xrm.WebApi.updateRecord("sa_event", primaryControl.data.entity.getId().toLowerCase().replace('{', '').replace('}', ''), record).then(
+                    function success(result) {
+                        var updatedId = result.id;
+                        primaryControl.data.refresh(false)
+                    },
+                    function (error) {
+                        Xrm.Navigation.openAlertDialog({ confirmButtonLabel: "OK", text: error.message , title: "Error" }, { height: 120, width: 260 });
+                    }
+                );
+            }
+        }
+    );
+}
+function cancelEvent(primaryControl) {
+    "use strict";
+    var confirmStrings = { text: "Are you sure you want to mark this event as cancelled?.", title: "Confirm Event Cancellation" };
+    var confirmOptions = { height: 200, width: 450 };
+    Xrm.Navigation.openConfirmDialog(confirmStrings, confirmOptions).then(
+        function (success) {
+            if (success.confirmed) {
+                var record = {};
+                record.statecode = 1; // State
+                record.statuscode = 126380002; // Status
+                record.sa_registrationopen = false;
+                Xrm.WebApi.updateRecord("sa_event", primaryControl.data.entity.getId().toLowerCase().replace('{', '').replace('}', ''), record).then(
+                    function success(result) {
+                        var updatedId = result.id;
+                        primaryControl.data.refresh(false)
+                    },
+                    function (error) {
+                        Xrm.Navigation.openAlertDialog({ confirmButtonLabel: "OK", text: error.message , title: "Error" }, { height: 120, width: 260 });
+                    }
+                );
+            }
+        }
+    );
+}
+function completeEvent(primaryControl) {
+    "use strict";
+    var confirmStrings = { text: "Are you sure you want to mark this event as complete?.", title: "Confirm Event Completition" };
+    var confirmOptions = { height: 200, width: 450 };
+    Xrm.Navigation.openConfirmDialog(confirmStrings, confirmOptions).then(
+        function (success) {
+            if (success.confirmed) {
+                var record = {};
+                record.statecode = 1; // State
+                record.statuscode = 126380001; // Status
+                record.sa_registrationopen = false;
+                Xrm.WebApi.updateRecord("sa_event", primaryControl.data.entity.getId().toLowerCase().replace('{', '').replace('}', ''), record).then(
+                    function success(result) {
+                        var updatedId = result.id;
+                        primaryControl.data.refresh(false)
+                    },
+                    function (error) {
+                        Xrm.Navigation.openAlertDialog({ confirmButtonLabel: "OK", text: error.message , title: "Error" }, { height: 120, width: 260 });
+                    }
+                );
+            }
+        }
+    );
+}
+
+function openRegistration(primaryControl) {
+    "use strict";
+    Xrm.WebApi.retrieveMultipleRecords("sa_event", "?$select=sa_eventid&$filter=(sa_registrationopen eq true and statecode eq 0 and statuscode eq 126380003)").then(
+        function success(results1) {
+            var sa_eventid;
+            for (var i = 0; i < results1.entities.length; i++) {
+                var result1 = results1.entities[i];
+                // Columns
+                sa_eventid = result1["sa_eventid"]; // Guid
+            }
+            if (results1.entities.length === 0) {
+                var confirmStrings = { text: "Are you sure you want to open registration for this event?.", title: "Confirm Open Registration" };
+                var confirmOptions = { height: 200, width: 450 };
+                Xrm.Navigation.openConfirmDialog(confirmStrings, confirmOptions).then(
+                    function (success) {
+                        if (success.confirmed) {
+                            var record = {};
+                            record.statecode = 0; // State
+                            record.statuscode = 126380003; // Status
+                            record.sa_registrationopen = true;
+                            Xrm.WebApi.updateRecord("sa_event", primaryControl.data.entity.getId().toLowerCase().replace('{', '').replace('}', ''), record).then(
+                                function success(result) {
+                                    var updatedId = result.id;
+                                    primaryControl.data.refresh(false)
+                                },
+                                function (error) {
+                                    Xrm.Navigation.openAlertDialog({ confirmButtonLabel: "OK", text: error.message , title: "Error" }, { height: 120, width: 260 });
+                                }
+                            );
+                        }
+                    },
+                    function (error) {
+                        Xrm.Navigation.openAlertDialog({ confirmButtonLabel: "OK", text: error.message , title: "Error" }, { height: 120, width: 260 })
+                    }
+                )
+            }
+            else if (results1.entities.length > 0) {
+                var confirmStrings = { text: "There is already a published event with open registration. Do you wish to close registration for the previous event?.", title: "Confirm Open Registration" };
+                var confirmOptions = { height: 200, width: 450 };
+                Xrm.Navigation.openConfirmDialog(confirmStrings, confirmOptions).then(
+                    function (success) {
+                        if (success.confirmed) {
+                            var record = {};
+                            record.sa_registrationopen = false; // Boolean
+                            Xrm.WebApi.updateRecord("sa_event", sa_eventid, record).then(
+                                function success(result) {
+                                    var updatedId = result.id;
+                                    var record = {};
+                                    record.statecode = 0; // State
+                                    record.statuscode = 126380003; // Status
+                                    record.sa_registrationopen = true;
+                                    Xrm.WebApi.updateRecord("sa_event", primaryControl.data.entity.getId().toLowerCase().replace('{', '').replace('}', ''), record).then(
+                                        function success(result) {
+                                            var updatedId = result.id;
+                                            primaryControl.data.refresh(false)
+                                        },
+                                        function (error) {
+                                            Xrm.Navigation.openAlertDialog({ confirmButtonLabel: "OK", text: error.message , title: "Error" }, { height: 120, width: 260 });
+                                        }
+                                    );
+                                },
+                                function (error) {
+                                    Xrm.Navigation.openAlertDialog({ confirmButtonLabel: "OK", text: error.message , title: "Error" }, { height: 120, width: 260 });
+                                }
+                            );
+                        }
+                    },
+                    function (error) {
+                        Xrm.Navigation.openAlertDialog({ confirmButtonLabel: "OK", text: error.message , title: "Error" }, { height: 120, width: 260 });
+                    }
+                );
+
+            }
+        },
+        function (error) {
+            Xrm.Navigation.openAlertDialog({ confirmButtonLabel: "OK", text: error.message , title: "Error" }, { height: 120, width: 260 });
+        }
+    )
+}
+function closeRegistration(primaryControl) {
+    "use strict";
+    var confirmStrings = { text: "Are you sure you want to close registration for this event?.", title: "Confirm close Registration" };
+    var confirmOptions = { height: 200, width: 450 };
+    Xrm.Navigation.openConfirmDialog(confirmStrings, confirmOptions).then(
+        function (success) {
+            if (success.confirmed) {
+                var record = {};
+                record.sa_registrationopen = false;
+                Xrm.WebApi.updateRecord("sa_event", primaryControl.data.entity.getId().toLowerCase().replace('{', '').replace('}', ''), record).then(
+                    function success(result) {
+                        var updatedId = result.id;
+                        primaryControl.data.refresh(false)
+                    },
+                    function (error) {
+                        Xrm.Navigation.openAlertDialog({ confirmButtonLabel: "OK", text: error.message , title: "Error" }, { height: 120, width: 260 });
+                    }
+                );
+            }
+        },
+        function (error) {
+            Xrm.Navigation.openAlertDialog({ confirmButtonLabel: "OK", text: error.message , title: "Error" }, { height: 120, width: 260 })
+        }
+    )
+}
+function openCloseRegistration(primaryControl) {
+    "use strict";
+    if (primaryControl.getAttribute("sa_registrationopen").getValue()) {
+        closeRegistration(primaryControl)
+    }
+    else (
+        openRegistration(primaryControl)
+    )
+
+}
+function sendCertificate(primaryControl) {
+    "use strict";
+    var confirmStrings = { text: "Are you sure you want to send certificate regarding this Registration?.", title: "Confirm Certificate" };
+    var confirmOptions = { height: 200, width: 450 };
+    Xrm.Navigation.openConfirmDialog(confirmStrings, confirmOptions).then(
+        function (success) {
+            if (success.confirmed) {
+                var record = {};
+                record.sa_certificate = 1; // Choice
+                Xrm.WebApi.updateRecord("sa_eventattendee", primaryControl.data.entity.getId().toLowerCase().replace('{', '').replace('}', ''), record).then(
+                    function success(result) {
+                        var updatedId = result.id;
+                        primaryControl.data.refresh(false)
+                    },
+                    function (error) {
+                        Xrm.Navigation.openAlertDialog({ confirmButtonLabel: "OK", text: error.message , title: "Error" }, { height: 120, width: 260 });
+                    }
+                );
+            }
+        },
+        function (error) {
+            Xrm.Navigation.openAlertDialog({ confirmButtonLabel: "OK", text: error.message , title: "Error" }, { height: 120, width: 260 })
+        }
+    )
+}

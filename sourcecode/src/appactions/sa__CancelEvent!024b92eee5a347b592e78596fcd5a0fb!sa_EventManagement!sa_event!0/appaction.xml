@@ -1,0 +1,37 @@
+<appaction uniquename="sa__CancelEvent!024b92eee5a347b592e78596fcd5a0fb!sa_EventManagement!sa_event!0">
+  <appmoduleid>
+    <uniquename>sa_EventManagement</uniquename>
+  </appmoduleid>
+  <buttonlabeltext default="Open/Close Registration">
+    <label description="Open/Close Registration" languagecode="1033" />
+  </buttonlabeltext>
+  <context>1</context>
+  <contextentity>
+    <logicalname>sa_event</logicalname>
+  </contextentity>
+  <contextvalue>sa_event</contextvalue>
+  <fonticon>$clientsvg:OpenEnrollment</fonticon>
+  <hidden>0</hidden>
+  <iscustomizable>1</iscustomizable>
+  <isdisabled>0</isdisabled>
+  <isgrouptitlehidden>0</isgrouptitlehidden>
+  <location>0</location>
+  <name>CancelEvent!024b92eee5a347b592e78596fcd5a0fb</name>
+  <onclickeventjavascriptfunctionname>openCloseRegistration</onclickeventjavascriptfunctionname>
+  <onclickeventjavascriptparameters>[{"type":5}]</onclickeventjavascriptparameters>
+  <onclickeventjavascriptwebresourceid>
+    <webresourceid>25ecc0c5-993a-ee11-bdf4-002248595bba</webresourceid>
+  </onclickeventjavascriptwebresourceid>
+  <onclickeventtype>2</onclickeventtype>
+  <origin>0</origin>
+  <sequence>100100012.5000000000</sequence>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+  <type>0</type>
+  <visibilityformulacomponentlibraryid>
+    <name>sa_eventmanagementdefaultcommandlibrary_bbbe5</name>
+  </visibilityformulacomponentlibraryid>
+  <visibilityformulacomponentname>46db9541905c401ab6bb4cb9676006fb</visibilityformulacomponentname>
+  <visibilityformulafunctionname>Visible</visibilityformulafunctionname>
+  <visibilitytype>1</visibilitytype>
+</appaction>

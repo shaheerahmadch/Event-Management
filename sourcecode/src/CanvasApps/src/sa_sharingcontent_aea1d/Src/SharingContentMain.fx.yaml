@@ -1,0 +1,411 @@
+SharingContentMain As screen:
+    LoadingSpinnerColor: =RGBA(0, 120, 212, 1)
+
+    Container1 As groupContainer.verticalAutoLayoutContainer:
+        DropShadow: =DropShadow.Light
+        Height: =Parent.Height
+        LayoutAlignItems: =LayoutAlignItems.Center
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutJustifyContent: =LayoutJustifyContent.Center
+        LayoutMode: =LayoutMode.Auto
+        RadiusBottomLeft: =4
+        RadiusBottomRight: =4
+        RadiusTopLeft: =4
+        RadiusTopRight: =4
+        Width: =Parent.Width
+        ZIndex: =1
+
+        TextCanvas2 As Text:
+            Align: ='TextCanvas.Align'.Center
+            AlignInContainer: =AlignInContainer.Stretch
+            DisplayMode: =DisplayMode.Edit
+            Height: =    132
+            LayoutMinHeight: =32
+            LayoutMinWidth: =96
+            Size: =24
+            Text: ="Sharing Content"
+            Weight: ='TextCanvas.Weight'.Semibold
+            Width: =96
+            X: =0
+            Y: =0
+            ZIndex: =1
+
+        TextCanvas1 As Text:
+            Align: ='TextCanvas.Align'.Center
+            AlignInContainer: =AlignInContainer.Stretch
+            DisplayMode: =DisplayMode.Edit
+            Height: =72
+            LayoutMinHeight: =32
+            LayoutMinWidth: =96
+            Text: |-
+                ="Add the link you want to share here:"
+            Width: =96
+            X: =0
+            Y: =0
+            ZIndex: =2
+
+        "TextInputCanvas1 As 'Text input'":
+            AccessibleLabel: ="Link"
+            DisplayMode: =If( !IsBlank(DropdownCanvas1.Selected), DisplayMode.Edit,DisplayMode.Disabled)
+            Height: =32
+            LayoutMinHeight: =32
+            LayoutMinWidth: =320
+            Width: =320
+            X: =0
+            Y: =0
+            ZIndex: =3
+
+        TextCanvas3 As Text:
+            DisplayMode: =DisplayMode.Edit
+            Height: =32
+            LayoutMinHeight: =32
+            LayoutMinWidth: =96
+            Text: =
+            Width: =96
+            X: =0
+            Y: =0
+            ZIndex: =4
+
+        ButtonCanvas1 As Button:
+            AccessibleLabel: ="Button"
+            DisplayMode: =If( !IsBlank(DropdownCanvas1.Selected) && !IsBlank(TextInputCanvas1.Value), DisplayMode.Edit,DisplayMode.Disabled)
+            Height: =40
+            LayoutMinHeight: =32
+            LayoutMinWidth: =96
+            OnSelect: |-
+                =UpdateContext(
+                    {
+                        locGeneratedLink: 
+                        TextInputCanvas1.Value 
+                        & 
+                        If(
+                            "?" in TextInputCanvas1.Value,
+                            "&wt.mc_id=" & DropdownCanvas1.Selected.Value,
+                            "?wt.mc_id=" & DropdownCanvas1.Selected.Value
+                        )
+                    }
+                )
+            Text: ="Generate Link"
+            Width: =156
+            X: =0
+            Y: =0
+            ZIndex: =5
+
+        TextCanvas4 As Text:
+            DisplayMode: =DisplayMode.Edit
+            Height: =32
+            LayoutMinHeight: =32
+            LayoutMinWidth: =96
+            Text: =
+            Width: =96
+            X: =0
+            Y: =0
+            ZIndex: =6
+
+        TextCanvas5 As Text:
+            Align: ='TextCanvas.Align'.Center
+            AlignInContainer: =AlignInContainer.Stretch
+            DisplayMode: =DisplayMode.Edit
+            Height: =32
+            LayoutMinHeight: =32
+            LayoutMinWidth: =96
+            Text: =locGeneratedLink
+            Width: =96
+            X: =0
+            Y: =0
+            ZIndex: =7
+
+        Icon1 As icon.Copy:
+            AccessibleLabel: ="Icon"
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Color: =RGBA(0, 120, 212, 1)
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisabledColor: =RGBA(220, 220, 220, 1)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            Height: =32
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+            HoverFill: =RGBA(0, 0, 0, 0)
+            Icon: =Icon.Copy
+            OnSelect: =Copy(locGeneratedLink)
+            PaddingBottom: =3
+            PaddingLeft: =3
+            PaddingRight: =3
+            PaddingTop: =3
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            TabIndex: =0
+            Visible: =!IsBlank(locGeneratedLink)
+            Width: =32
+            ZIndex: =8
+
+    DropdownCanvas1 As Dropdown.pcfdataset:
+        AccessibleLabel: ="Dropdown"
+        DefaultSelectedItems: =Filter(Configurations,Key = "KEY_SHARING_ID")
+        DisplayMode: =If( !IsBlank(DropdownCanvas1.Selected), DisplayMode.Edit,DisplayMode.Disabled)
+        Height: =32
+        Items: =Filter(Configurations,Key = "KEY_SHARING_ID")
+        Width: =320
+        X: =Parent.Width-Self.Width-10
+        Y: =10
+        ZIndex: =2
+
+        Value1 As pcfDataField.textualColumn:
+            FieldDisplayName: ="Value"
+            FieldName: ="sa_value"
+            FieldType: ="s"
+            FieldVariantName: ="textualColumn"
+            Order: =1
+            ZIndex: =9
+
+    Icon2 As icon.Add:
+        AccessibleLabel: ="Icon"
+        BorderColor: =RGBA(0, 0, 0, 0)
+        Color: =RGBA(0, 120, 212, 1)
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(220, 220, 220, 1)
+        DisabledFill: =RGBA(0, 0, 0, 0)
+        Height: =32
+        HoverBorderColor: =RGBA(0, 0, 0, 0)
+        HoverColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+        HoverFill: =RGBA(0, 0, 0, 0)
+        Icon: =Icon.Add
+        OnSelect: |-
+            =UpdateContext({locPopUp:true});NewForm(Form1)
+        PaddingBottom: =3
+        PaddingLeft: =3
+        PaddingRight: =3
+        PaddingTop: =3
+        PressedBorderColor: =RGBA(0, 0, 0, 0)
+        PressedColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+        PressedFill: =RGBA(0, 0, 0, 0)
+        TabIndex: =
+        Width: =32
+        X: =DropdownCanvas1.X-Self.Width-10
+        Y: =DropdownCanvas1.Y
+        ZIndex: =3
+
+    Container2 As groupContainer.verticalAutoLayoutContainer:
+        DropShadow: =DropShadow.Light
+        Fill: =RGBA(0, 0, 0, 0.5)
+        Height: =Parent.Height
+        LayoutAlignItems: =LayoutAlignItems.Center
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutJustifyContent: =LayoutJustifyContent.Center
+        LayoutMode: =LayoutMode.Auto
+        RadiusBottomLeft: =4
+        RadiusBottomRight: =4
+        RadiusTopLeft: =4
+        RadiusTopRight: =4
+        Visible: =locPopUp
+        Width: =Parent.Width
+        ZIndex: =4
+
+        Form1 As form:
+            AlignInContainer: =AlignInContainer.SetByContainer
+            BorderColor: =RGBA(166, 166, 166, 1)
+            DataSource: =Configurations
+            Fill: =Color.White
+            FillPortions: =0
+            Height: =250
+            LayoutMinHeight: =250
+            LayoutMinWidth: =400
+            Width: =400
+            ZIndex: =1
+
+            Value_DataCard1 As typedDataCard.pcfCoreTextualEditCard:
+                BorderColor: =RGBA(166, 166, 166, 1)
+                BorderStyle: =BorderStyle.Solid
+                DataField: ="sa_value"
+                Default: =ThisItem.Value
+                DisplayMode: =Parent.DisplayMode
+                DisplayName: =DataSourceInfo([@Configurations],DataSourceInfo.DisplayName,"sa_value")
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =70
+                MaxLength: =DataSourceInfo([@Configurations], DataSourceInfo.MaxLength, "sa_value")
+                Required: =false
+                Update: =DataCardValue3.Value
+                Width: =Parent.Width
+                WidthFit: =true
+                X: =1
+                Y: =0
+                ZIndex: =1
+
+                DataCardKey3 As Label:
+                    AutoHeight: =true
+                    DisplayMode: =DisplayMode.Edit
+                    FontSize: =9
+                    Height: =22
+                    Text: |-
+                        ="Add your new sharing ID here:"
+                    Tooltip: =Parent.DisplayName
+                    VerticalAlignment: =VerticalAlign.Bottom
+                    Width: =Parent.Width - 48
+                    Wrap: =true
+                    X: =24
+                    Y: =10
+                    ZIndex: =1
+
+                "DataCardValue3 As 'Text box'":
+                    AccessibleLabel: =Parent.DisplayName
+                    DisplayMode: =Parent.DisplayMode
+                    FontSize: =10.5
+                    Height: =32
+                    Mode: ="SingleLine"
+                    Required: =Parent.Required
+                    Tooltip: =Parent.DisplayName
+                    Value: =Parent.Default
+                    Width: =Parent.Width - 48
+                    X: =24
+                    Y: =DataCardKey3.Y + DataCardKey3.Height + 4
+                    ZIndex: =2
+
+                ErrorMessage2 As Label:
+                    AutoHeight: =true
+                    Color: =Color.Red
+                    DisplayMode: =DisplayMode.Edit
+                    FontSize: =9
+                    Height: =30
+                    Text: =Parent.Error
+                    Tooltip: =Parent.Error
+                    Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =Parent.Width - 48
+                    Wrap: =true
+                    X: =24
+                    Y: =DataCardValue3.Y + DataCardValue3.Height
+                    ZIndex: =3
+
+                StarVisible2 As Label:
+                    Alignment: =Align.Center
+                    DisplayMode: =DisplayMode.Edit
+                    Height: =30
+                    Text: ="*"
+                    Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =30
+                    X: =0
+                    Y: =DataCardKey3.Y
+                    ZIndex: =4
+
+            Key_DataCard2 As typedDataCard.pcfCoreTextualEditCard:
+                BorderColor: =RGBA(166, 166, 166, 1)
+                BorderStyle: =BorderStyle.Solid
+                DataField: =
+                Default: =
+                DisplayMode: =Parent.DisplayMode
+                DisplayName: =
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =70
+                MaxLength: =DataSourceInfo([@Configurations], DataSourceInfo.MaxLength, "sa_key")
+                Required: =true
+                Update: =
+                Width: =133
+                WidthFit: =true
+                X: =2
+                Y: =0
+                ZIndex: =1
+
+                Button1 As Button:
+                    AccessibleLabel: ="Button"
+                    DisplayMode: =If(!IsBlank(DataCardValue3.Value),  DisplayMode.Edit,DisplayMode.Disabled)
+                    Height: =32
+                    OnSelect: |-
+                        =SubmitForm(Form1);Refresh(Configurations);UpdateContext({locPopUp:false})
+                    Text: ="Add Sharing ID"
+                    Width: =126
+                    X: =(Parent.Width-Self.Width)/2
+                    Y: =40
+                    ZIndex: =1
+
+            Key_DataCard1 As typedDataCard.pcfCoreTextualEditCard:
+                BorderColor: =RGBA(166, 166, 166, 1)
+                BorderStyle: =BorderStyle.Solid
+                DataField: ="sa_key"
+                Default: =ThisItem.Key
+                DisplayMode: =Parent.DisplayMode
+                DisplayName: =DataSourceInfo([@Configurations],DataSourceInfo.DisplayName,"sa_key")
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =70
+                MaxLength: =DataSourceInfo([@Configurations], DataSourceInfo.MaxLength, "sa_key")
+                Required: =true
+                Update: =DataCardValue1.Value
+                Width: =266
+                WidthFit: =true
+                X: =0
+                Y: =0
+                ZIndex: =2
+
+                DataCardKey1 As Label:
+                    Alignment: =Align.Center
+                    AutoHeight: =true
+                    DisplayMode: =DisplayMode.Edit
+                    Font: =Font.Arial
+                    FontSize: =18
+                    FontWeight: =FontWeight.Semibold
+                    Height: =22
+                    Text: ="New Sharing ID"
+                    TextRole: ='Label.TextRole'.Default
+                    Tooltip: =Parent.DisplayName
+                    VerticalAlignment: =VerticalAlign.Bottom
+                    Width: =Parent.Width - 48
+                    Wrap: =true
+                    X: =24
+                    Y: =10
+                    ZIndex: =1
+
+                "DataCardValue1 As 'Text box'":
+                    AccessibleLabel: =Parent.DisplayName
+                    DisplayMode: =Parent.DisplayMode
+                    FontSize: =10.5
+                    Height: =32
+                    Mode: ="SingleLine"
+                    Required: =Parent.Required
+                    Tooltip: =Parent.DisplayName
+                    Value: ="KEY_SHARING_ID"
+                    Visible: =false
+                    Width: =Parent.Width - 48
+                    X: =24
+                    Y: =DataCardKey1.Y + DataCardKey1.Height + 4
+                    ZIndex: =2
+
+                ErrorMessage1 As Label:
+                    AutoHeight: =true
+                    Color: =Color.Red
+                    DisplayMode: =DisplayMode.Edit
+                    FontSize: =9
+                    Height: =30
+                    Text: =Parent.Error
+                    Tooltip: =Parent.Error
+                    Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                    Width: =Parent.Width - 48
+                    Wrap: =true
+                    X: =24
+                    Y: =DataCardValue1.Y + DataCardValue1.Height
+                    ZIndex: =3
+
+                Icon3 As icon.Cancel:
+                    AccessibleLabel: ="Icon"
+                    BorderColor: =RGBA(0, 0, 0, 0)
+                    Color: =RGBA(0, 120, 212, 1)
+                    DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                    DisabledColor: =RGBA(220, 220, 220, 1)
+                    DisabledFill: =RGBA(0, 0, 0, 0)
+                    Height: =32
+                    HoverBorderColor: =RGBA(0, 0, 0, 0)
+                    HoverColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                    HoverFill: =RGBA(0, 0, 0, 0)
+                    Icon: =Icon.Cancel
+                    OnSelect: |-
+                        =UpdateContext({locPopUp:false})
+                    PaddingBottom: =3
+                    PaddingLeft: =3
+                    PaddingRight: =3
+                    PaddingTop: =3
+                    PressedBorderColor: =RGBA(0, 0, 0, 0)
+                    PressedColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+                    PressedFill: =RGBA(0, 0, 0, 0)
+                    TabIndex: =
+                    Width: =32
+                    X: =Parent.Width-Self.Width
+                    ZIndex: =4
+

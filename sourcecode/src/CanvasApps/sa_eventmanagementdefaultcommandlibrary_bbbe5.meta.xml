@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CanvasApp xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>sa_eventmanagementdefaultcommandlibrary_bbbe5</Name>
+  <AppVersion>2023-08-25T10:30:04Z</AppVersion>
+  <Status>Ready</Status>
+  <CreatedByClientVersion>3.23082.17.0</CreatedByClientVersion>
+  <MinClientVersion>3.23082.17.0</MinClientVersion>
+  <Tags>{"primaryDeviceWidth":"1366","primaryDeviceHeight":"768","sienaVersion":"20230824T050642Z-3.23082.17.0","deviceCapabilities":"","supportsPortrait":"true","supportsLandscape":"true","primaryFormFactor":"Tablet","publisherVersion":"3.23082.17","minimumRequiredApiVersion":"2.2.0","hasComponent":"true","hasUnlockedComponent":"true","isUnifiedRootApp":"false","showStatusBar":"false"}</Tags>
+  <IsCdsUpgraded>0</IsCdsUpgraded>
+  <GalleryItemId xsi:nil="true"></GalleryItemId>
+  <BackgroundColor>RGBA(251,101,60,1)</BackgroundColor>
+  <DisplayName>EventManagement_DefaultCommandLibrary</DisplayName>
+  <Description></Description>
+  <CommitMessage></CommitMessage>
+  <Publisher></Publisher>
+  <AuthorizationReferences>[]</AuthorizationReferences>
+  <ConnectionReferences>{}</ConnectionReferences>
+  <DatabaseReferences>{"default.cds":{"databaseDetails":{"referenceType":"Environmental","environmentName":"default.cds","overrideValues":{"status":"NotSpecified"}},"dataSources":{"Events":{"entitySetName":"sa_events","logicalName":"sa_event"},"Templates":{"entitySetName":"sa_templates","logicalName":"sa_template"},"Registrations":{"entitySetName":"sa_eventattendees","logicalName":"sa_eventattendee"},"Contacts":{"entitySetName":"contacts","logicalName":"contact"}}}}</DatabaseReferences>
+  <CanConsumeAppPass>1</CanConsumeAppPass>
+  <CanvasAppType>1</CanvasAppType>
+  <BypassConsent>0</BypassConsent>
+  <EmbeddedApp xsi:nil="true"></EmbeddedApp>
+  <IntroducedVersion>1.0</IntroducedVersion>
+  <CdsDependencies>{"cdsdependencies":[{"componenttype":1,"logicalname":"sa_event"},{"componenttype":1,"logicalname":"sa_template"},{"componenttype":1,"logicalname":"sa_eventattendee"},{"componenttype":1,"logicalname":"contact"}]}</CdsDependencies>
+  <IsCustomizable>1</IsCustomizable>
+  <BackgroundImageUri>/CanvasApps/sa_eventmanagementdefaultcommandlibrary_bbbe5_BackgroundImageUri</BackgroundImageUri>
+  <DocumentUri>/CanvasApps/sa_eventmanagementdefaultcommandlibrary_bbbe5_DocumentUri.msapp</DocumentUri>
+</CanvasApp>

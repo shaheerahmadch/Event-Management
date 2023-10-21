@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AppModule>
+  <UniqueName>sa_EventManagement</UniqueName>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <WebResourceId>1b55ccc9-4412-ed11-b83e-000d3a8d107a</WebResourceId>
+  <OptimizedFor></OptimizedFor>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+  <WelcomePageId>ca4606ff-953d-ee11-bdf4-002248595bba</WelcomePageId>
+  <FormFactor>1</FormFactor>
+  <ClientType>4</ClientType>
+  <NavigationType>0</NavigationType>
+  <AppModuleComponents>
+    <AppModuleComponent type="1" schemaName="account" />
+    <AppModuleComponent type="1" schemaName="contact" />
+    <AppModuleComponent type="1" schemaName="sa_event" />
+    <AppModuleComponent type="1" schemaName="sa_eventattendee" />
+    <AppModuleComponent type="1" schemaName="sa_supportrequest" />
+    <AppModuleComponent type="1" schemaName="sa_template" />
+    <AppModuleComponent type="60" id="{b865f0d8-e13f-ee11-bdf3-002248595bba}" />
+    <AppModuleComponent type="62" schemaName="sa_EventManagement" />
+  </AppModuleComponents>
+  <AppModuleRoleMaps>
+    <Role id="{627090ff-40a3-4053-8790-584edc5be201}" />
+    <Role id="{119f245c-3cc8-4b62-b31c-d1a046ced15d}" />
+  </AppModuleRoleMaps>
+  <LocalizedNames>
+    <LocalizedName description="Event Management" languagecode="1033" />
+  </LocalizedNames>
+  <appelements>
+    <appelement uniquename="sa_sa_EventManagement_canvasappid_sa_eventmanagementdefaultcommandlibrary_bbbe5">
+      <canvasappid>
+        <name>sa_eventmanagementdefaultcommandlibrary_bbbe5</name>
+      </canvasappid>
+      <iscustomizable>1</iscustomizable>
+      <name>sa_sa_EventManagement_canvasappid_sa_eventmanagementdefaultcommandlibrary_bbbe5</name>
+    </appelement>
+    <appelement uniquename="sa_sa_EventManagement_canvasappid_sa_sharingcontent_aea1d">
+      <canvasappid>
+        <name>sa_sharingcontent_aea1d</name>
+      </canvasappid>
+      <iscustomizable>1</iscustomizable>
+      <name>sa_sa_EventManagement_canvasappid_sa_sharingcontent_aea1d</name>
+    </appelement>
+  </appelements>
+  <appsettings>
+    <appsetting settingdefinitionid.uniquename="FluentThemingPreview">
+      <iscustomizable>1</iscustomizable>
+      <value>true</value>
+    </appsetting>
+  </appsettings>
+</AppModule>

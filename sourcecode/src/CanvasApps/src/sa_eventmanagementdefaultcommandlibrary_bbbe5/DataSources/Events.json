@@ -1,0 +1,221 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "sa_events",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "sa_event",
+    "MaxGetRowsCount": 500,
+    "Name": "Events",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "_sa_host_value": "Host",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "sa_absentattendees": "Absent Attendees",
+      "sa_absentattendees_date": "Absent Attendees (Last Updated On)",
+      "sa_absentattendees_state": "Absent Attendees (State)",
+      "sa_certificatessent": "Certificates Sent",
+      "sa_description": "Description",
+      "sa_end": "End",
+      "sa_evenimage": "Event Image",
+      "sa_evenimageid": "sa_EvenImageId",
+      "sa_event_ActivityPointers": "Activities",
+      "sa_event_adx_inviteredemptions": "Invite Redemptions",
+      "sa_event_adx_portalcomments": "Portal Comments",
+      "sa_event_Appointments": "Appointments",
+      "sa_event_AsyncOperations": "System Jobs",
+      "sa_event_BulkDeleteFailures": "Bulk Delete Failures",
+      "sa_event_chats": "Teams chats",
+      "sa_event_Emails": "Email Messages",
+      "sa_event_Faxes": "Faxes",
+      "sa_event_Letters": "Letters",
+      "sa_event_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "sa_event_PhoneCalls": "Phone Calls",
+      "sa_event_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "sa_event_ProcessSession": "Process Sessions",
+      "sa_event_RecurringAppointmentMasters": "Recurring Appointments",
+      "sa_event_sa_SupportRequests": "Support Requests",
+      "sa_event_SyncErrors": "Sync Errors",
+      "sa_event_Tasks": "Tasks",
+      "sa_eventid": "Event",
+      "sa_eventtype": "Event Type",
+      "sa_meetingid": "Meeting ID",
+      "sa_meetinginvitesent": "Meeting Invite Sent",
+      "sa_meetinglink": "Meeting Link",
+      "sa_meetingpass": "Meeting Pass",
+      "sa_name": "Name",
+      "sa_presentattendees": "Present Attendees",
+      "sa_presentattendees_date": "Present Attendees (Last Updated On)",
+      "sa_presentattendees_state": "Present Attendees (State)",
+      "sa_process": "Process",
+      "sa_registrationlink": "Registration Link",
+      "sa_registrationopen": "Registration Open",
+      "sa_sa_eventattendee_Event_sa_event": "Registrations",
+      "sa_start": "Start",
+      "sa_TemplateAlreadyExist": "Template (Already Exist)",
+      "sa_TemplateMeetingInvite": "Template (Meeting Invite)",
+      "sa_TemplateSendCertificate": "Template (Send Certificate)",
+      "sa_TemplateThankYou": "Template (Thank You)",
+      "sa_totalattendees": "Total Registrations",
+      "sa_totalattendees_date": "Total Attendees (Last Updated On)",
+      "sa_totalattendees_state": "Total Attendees (State)",
+      "sa_venue": "Venue",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Events",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Events (Views)",
+    "Name": "_sa_event_views",
+    "RelatedEntityName": "Events",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "187fd3cd-a075-42a5-91c2-369216619f23": "Event Advanced Find View",
+      "6555c8ee-bce9-4131-b081-4153434d465a": "Active Events",
+      "a15e4fce-ea3f-ee11-bdf3-002248595bba": "All Events",
+      "a1c21547-695b-4d8a-97a4-529bf4f688ea": "Event Associated View",
+      "c15264d6-a37d-409b-9f2d-64f0296f0740": "Event Lookup View",
+      "cec84fbd-6456-4235-a661-74dd036ed8ad": "Inactive Events"
+    }
+  },
+  {
+    "DisplayName": "Certificates Sent (Events)",
+    "Name": "sa_event_sa_certificatessent",
+    "OptionSetInfoNameMapping": {
+      "0": "No",
+      "1": "Yes"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "sa_certificatessent",
+        "OptionSetReferenceEntityName": "Events"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "sa_certificatessent",
+    "RelatedEntityName": "Events",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Event Type (Events)",
+    "Name": "sa_event_sa_eventtype",
+    "OptionSetInfoNameMapping": {
+      "0": "On-Site",
+      "1": "Hybrid",
+      "2": "Live"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "sa_eventtype",
+        "OptionSetReferenceEntityName": "Events"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "sa_eventtype",
+    "RelatedEntityName": "Events",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Meeting Invite Sent (Events)",
+    "Name": "sa_event_sa_meetinginvitesent",
+    "OptionSetInfoNameMapping": {
+      "0": "No",
+      "1": "Yes"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "sa_meetinginvitesent",
+        "OptionSetReferenceEntityName": "Events"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "sa_meetinginvitesent",
+    "RelatedEntityName": "Events",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Registration Open (Events)",
+    "Name": "sa_event_sa_registrationopen",
+    "OptionSetInfoNameMapping": {
+      "0": "No",
+      "1": "Yes"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "sa_registrationopen",
+        "OptionSetReferenceEntityName": "Events"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "sa_registrationopen",
+    "RelatedEntityName": "Events",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Events)",
+    "Name": "sa_event_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Events"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Events",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Events)",
+    "Name": "sa_event_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Draft",
+      "126380001": "Completed",
+      "126380002": "Cancelled",
+      "126380003": "Published"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Events"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Events",
+    "Type": "OptionSetInfo"
+  }
+]

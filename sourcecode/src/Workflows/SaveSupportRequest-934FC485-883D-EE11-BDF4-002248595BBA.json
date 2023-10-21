@@ -1,0 +1,221 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_microsoftforms": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "sa_sharedmicrosoftforms_3ff66"
+        },
+        "api": {
+          "name": "shared_microsoftforms"
+        }
+      },
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "sa_sharedcommondataserviceforapps_df72c"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "When_a_new_response_is_submitted": {
+          "splitOn": "@triggerOutputs()?['body/value']",
+          "metadata": {
+            "operationMetadataId": "16d7b646-1f0a-4eb8-bc8b-5911f1c8b61c"
+          },
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_microsoftforms",
+              "operationId": "CreateFormWebhook",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_microsoftforms"
+            },
+            "parameters": {
+              "form_id": "oBzDhDusrk6tEVGdgCM-bwQBweX1RPtGsSxzZ4Wb3s5UQjRZRjRKSjdNTjZSWEhISVZCS0NJWVA3WC4u"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "actions": {
+        "Get_response_details": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "d0598af7-3cfa-4466-8ce6-762550207c2d"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_microsoftforms",
+              "operationId": "GetFormResponseById",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_microsoftforms"
+            },
+            "parameters": {
+              "form_id": "oBzDhDusrk6tEVGdgCM-bwQBweX1RPtGsSxzZ4Wb3s5UQjRZRjRKSjdNTjZSWEhISVZCS0NJWVA3WC4u",
+              "response_id": "@triggerOutputs()?['body/resourceData/responseId']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "List_rows": {
+          "runAfter": {
+            "Initialize_variable": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "c5dc7bc4-a9ad-4004-b5d1-5f8745cf7f4a"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "contacts",
+              "$filter": "emailaddress1 eq '@{outputs('Get_response_details')?['body/r27de3a868d37405d9465d61b9c2c62ab']}'"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Condition": {
+          "actions": {
+            "Set_variable": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "7ee80991-c9c3-4ea1-8257-86bd36e045b2"
+              },
+              "type": "SetVariable",
+              "inputs": {
+                "name": "varContactID",
+                "value": "@{first(outputs('List_rows')?['body/value'])?['contactid']}"
+              }
+            }
+          },
+          "runAfter": {
+            "List_rows": [
+              "Succeeded"
+            ]
+          },
+          "else": {
+            "actions": {
+              "Add_a_new_row": {
+                "runAfter": {},
+                "metadata": {
+                  "operationMetadataId": "e82209ec-8f2b-45c1-bb2c-2e3fc1ea90aa"
+                },
+                "type": "OpenApiConnection",
+                "inputs": {
+                  "host": {
+                    "connectionName": "shared_commondataserviceforapps",
+                    "operationId": "CreateRecord",
+                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                  },
+                  "parameters": {
+                    "entityName": "contacts",
+                    "item/lastname": "@outputs('Get_response_details')?['body/r324eae09255b481595ce7a77f76ecf28']",
+                    "item/emailaddress1": "@outputs('Get_response_details')?['body/r27de3a868d37405d9465d61b9c2c62ab']",
+                    "item/firstname": "@outputs('Get_response_details')?['body/rf9dd6cc863ac4264a6d71fc66c7af229']",
+                    "item/mobilephone": "@outputs('Get_response_details')?['body/r92286e4e12c6463492a31215f121b4a7']"
+                  },
+                  "authentication": "@parameters('$authentication')"
+                }
+              },
+              "Set_variable_2": {
+                "runAfter": {
+                  "Add_a_new_row": [
+                    "Succeeded"
+                  ]
+                },
+                "metadata": {
+                  "operationMetadataId": "4641ea2c-b3c8-4849-9ec1-39b77c69eb64"
+                },
+                "type": "SetVariable",
+                "inputs": {
+                  "name": "varContactID",
+                  "value": "@outputs('Add_a_new_row')?['body/contactid']"
+                }
+              }
+            }
+          },
+          "expression": {
+            "greater": [
+              "@length(outputs('List_rows')?['body/value'])",
+              0
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "2bcf417c-9fb6-4c2f-a706-e0f9e1f5fcb0"
+          },
+          "type": "If"
+        },
+        "Initialize_variable": {
+          "runAfter": {
+            "Get_response_details": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "b7122be4-dd89-4d8a-94bd-0c4353ca2663"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "varContactID",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "Add_a_new_row_2": {
+          "runAfter": {
+            "Condition": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "486eff74-6f79-4264-b221-a3c78d4b1767"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "CreateRecord",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "sa_supportrequests",
+              "item/subject": "@outputs('Get_response_details')?['body/r6796a0e2248d43d5b859b0acf6d6d2af']",
+              "item/description": "@outputs('Get_response_details')?['body/r3c5d21f2c9344f0bbdd47020d35148cf']",
+              "item/scheduledend": "@outputs('Get_response_details')?['body/submitDate']",
+              "item/prioritycode": 1,
+              "item/regardingobjectid_contact_sa_supportrequest@odata.bind": "/contacts(@{variables('varContactID')})"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

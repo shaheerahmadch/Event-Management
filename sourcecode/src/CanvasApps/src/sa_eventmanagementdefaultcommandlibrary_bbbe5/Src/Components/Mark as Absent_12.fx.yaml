@@ -1,0 +1,20 @@
+"'Mark as Absent_12' As CommandComponent":
+    AutoSave: =true
+    DataSource: =Registrations
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =0
+    Icon: =SampleImage
+    OnSelect: |-
+        =If(Confirm("Are you sure you want to mark this attendence as 'Absent'?"),Patch(Registrations,Self.Selected.Item,{Attendence:'Attendence (Registrations)'.Absent,Status:'Status (Registrations)'.Inactive}))
+    Selected: |-
+        ={ Item: {}, AllItems:[], Unsaved: false, State: SelectedState.Edit }
+    SelectionMax: =100
+    SelectionMin: =100
+    Title: = 
+    Tooltip: = 
+    Visible: =Self.Selected.Item.Attendence <> 'Attendence (Registrations)'.Absent
+    Width: =0
+    X: =0
+    Y: =0
+    ZIndex: =1
+

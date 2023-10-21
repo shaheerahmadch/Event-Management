@@ -1,0 +1,40 @@
+<appaction uniquename="sa__MarkasAbsent!70f9a532727643ad980b9d4843ad8f63!sa_EventManagement!sa_eventattendee!1">
+  <appmoduleid>
+    <uniquename>sa_EventManagement</uniquename>
+  </appmoduleid>
+  <buttonlabeltext default="Mark as Absent">
+    <label description="Mark as Absent" languagecode="1033" />
+  </buttonlabeltext>
+  <context>1</context>
+  <contextentity>
+    <logicalname>sa_eventattendee</logicalname>
+  </contextentity>
+  <contextvalue>sa_eventattendee</contextvalue>
+  <fonticon>AddTerritoryMember</fonticon>
+  <hidden>0</hidden>
+  <iscustomizable>1</iscustomizable>
+  <isdisabled>0</isdisabled>
+  <isgrouptitlehidden>0</isgrouptitlehidden>
+  <location>1</location>
+  <name>MarkasAbsent!70f9a532727643ad980b9d4843ad8f63</name>
+  <onclickeventformulacomponentlibraryid>
+    <name>sa_eventmanagementdefaultcommandlibrary_bbbe5</name>
+  </onclickeventformulacomponentlibraryid>
+  <onclickeventformulacomponentname>4990917ead3243ce9da0831bfda476b3</onclickeventformulacomponentname>
+  <onclickeventformulafunctionname>OnSelect</onclickeventformulafunctionname>
+  <onclickeventtype>1</onclickeventtype>
+  <origin>0</origin>
+  <parentappactionid>
+    <uniquename>sa__NewGroup!00ef97d82e3343f3aee5241d2c14bdc5!sa_EventManagement!sa_eventattendee!1</uniquename>
+  </parentappactionid>
+  <sequence>10000.0000000000</sequence>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+  <type>0</type>
+  <visibilityformulacomponentlibraryid>
+    <name>sa_eventmanagementdefaultcommandlibrary_bbbe5</name>
+  </visibilityformulacomponentlibraryid>
+  <visibilityformulacomponentname>4990917ead3243ce9da0831bfda476b3</visibilityformulacomponentname>
+  <visibilityformulafunctionname>Visible</visibilityformulafunctionname>
+  <visibilitytype>1</visibilitytype>
+</appaction>

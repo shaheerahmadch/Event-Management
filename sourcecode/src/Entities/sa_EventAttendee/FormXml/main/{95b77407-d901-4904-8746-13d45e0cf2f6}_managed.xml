@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{95b77407-d901-4904-8746-13d45e0cf2f6}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form headerdensity="HighWithControls">
+      <tabs>
+        <tab verticallayout="true" id="{d077b42d-7761-431c-ae42-a7617ac156ec}" IsUserDefined="1">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{7aa03673-2c99-4b25-9fdb-4a0e2f2cb20a}">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{2110bb90-0efb-41ed-be26-d5017facdc83}">
+                        <labels>
+                          <label description="ID" languagecode="1033" />
+                        </labels>
+                        <control id="sa_id" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="sa_id" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{287e27f6-18cf-4575-be42-56b36c5c6adb}" visible="false">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{1621f7c3-d3d8-45a4-9862-f209c05c3799}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Attendee" languagecode="1033" />
+                        </labels>
+                        <control id="sa_attendee" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sa_attendee" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{af090800-d3a9-47fb-acb4-388a2ea0e5da}" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="New QV control 1692341759670" languagecode="1033" />
+                        </labels>
+                        <control id="QuickviewControl1692341759670" classid="{5C5600E0-1D6E-4205-A272-BE80DA87FD42}" datafieldname="sa_attendee">
+                          <parameters>
+                            <DisplayAsCustomer360Tile>false</DisplayAsCustomer360Tile>
+                            <QuickForms>&lt;QuickFormIds&gt;&lt;QuickFormId entityname="contact"&gt;bdb0ae1c-32fa-4374-b637-8dafe107bc44&lt;/QuickFormId&gt;&lt;/QuickFormIds&gt;</QuickForms>
+                            <HideQuickFormBorder>true</HideQuickFormBorder>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{5deab09b-d521-4601-b557-06109288515e}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Event" languagecode="1033" />
+                        </labels>
+                        <control id="sa_event" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="sa_event" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{5f07a957-9e99-4897-9aa0-d89a4583f97f}" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="New QV control 1692341778450" languagecode="1033" />
+                        </labels>
+                        <control id="QuickviewControl1692341778450" classid="{5C5600E0-1D6E-4205-A272-BE80DA87FD42}" datafieldname="sa_event">
+                          <parameters>
+                            <DisplayAsCustomer360Tile>false</DisplayAsCustomer360Tile>
+                            <QuickForms>&lt;QuickFormIds&gt;&lt;QuickFormId entityname="sa_event"&gt;3ec7161a-b15b-4d0f-98c1-ac10e041189b&lt;/QuickFormId&gt;&lt;/QuickFormIds&gt;</QuickForms>
+                            <HideQuickFormBorder>true</HideQuickFormBorder>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{e9b35a09-f913-4831-a3ca-c6ca08439f80}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Certificate" languagecode="1033" />
+                        </labels>
+                        <control id="sa_certificate" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="sa_certificate" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <header id="{3c0ff3ee-d2e0-4418-90b4-3583e23a36d1}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{f9df9d13-03b7-4a9a-8665-2827a2cac7ef}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{c64ecaa4-ed6f-441a-8297-048975bed411}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{26bc1bd1-0275-484a-80d7-f92f415f707e}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{f2ccdac8-a52f-4e13-b6c8-9e3d5f454bb1}" locklevel="0" colspan="1" rowspan="1">
+              <labels>
+                <label description="Registered On" languagecode="1033" />
+              </labels>
+              <control id="header_createdon" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="createdon" disabled="false" />
+            </cell>
+            <cell id="{39f4fe49-8ea9-412d-a7b8-c4263d9063d3}" locklevel="0" colspan="1" rowspan="1" visible="false">
+              <labels>
+                <label description="Status" languagecode="1033" />
+              </labels>
+              <control id="header_statecode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="statecode" disabled="false" />
+            </cell>
+            <cell id="{314d4bbc-e940-49aa-bf7f-8560533388bf}" locklevel="0" colspan="1" rowspan="1">
+              <labels>
+                <label description="Attendence" languagecode="1033" />
+              </labels>
+              <control id="header_statuscode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="statuscode" disabled="false" />
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{6c95f1ea-7cf9-4970-9ccc-7b6628faa4f2}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{e8cf0596-8f7e-46f7-b658-ba4947d412ed}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{de170dfb-053c-458b-909b-d3e9cac58e45}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{00445f6f-be4a-4269-b90b-d26592a9e65f}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

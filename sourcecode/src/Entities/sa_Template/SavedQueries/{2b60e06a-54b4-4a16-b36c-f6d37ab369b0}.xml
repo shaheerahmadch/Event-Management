@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{2b60e06a-54b4-4a16-b36c-f6d37ab369b0}</savedqueryid>
+    <layoutxml>
+      <grid name="sa_templates" jump="sa_name" select="1" icon="1" preview="0">
+        <row name="sa_template" id="sa_templateid">
+          <cell name="sa_name" width="300" />
+          <cell name="statuscode" width="119" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>64</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical" distinct="true">
+        <entity name="sa_template">
+          <attribute name="sa_templateid" />
+          <attribute name="sa_name" />
+          <attribute name="statuscode" />
+          <filter type="and">
+            <condition attribute="statuscode" operator="eq" value="2" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Template Lookup View" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

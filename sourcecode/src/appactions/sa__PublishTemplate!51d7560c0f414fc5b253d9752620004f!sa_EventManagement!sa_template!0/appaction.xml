@@ -1,0 +1,37 @@
+<appaction uniquename="sa__PublishTemplate!51d7560c0f414fc5b253d9752620004f!sa_EventManagement!sa_template!0">
+  <appmoduleid>
+    <uniquename>sa_EventManagement</uniquename>
+  </appmoduleid>
+  <buttonlabeltext default="Publish Template">
+    <label description="Publish Template" languagecode="1033" />
+  </buttonlabeltext>
+  <context>1</context>
+  <contextentity>
+    <logicalname>sa_template</logicalname>
+  </contextentity>
+  <contextvalue>sa_template</contextvalue>
+  <fonticon>$clientsvg:FavoriteStarFill</fonticon>
+  <hidden>0</hidden>
+  <iscustomizable>1</iscustomizable>
+  <isdisabled>0</isdisabled>
+  <isgrouptitlehidden>0</isgrouptitlehidden>
+  <location>0</location>
+  <name>PublishTemplate!51d7560c0f414fc5b253d9752620004f</name>
+  <onclickeventformulacomponentlibraryid>
+    <name>sa_eventmanagementdefaultcommandlibrary_bbbe5</name>
+  </onclickeventformulacomponentlibraryid>
+  <onclickeventformulacomponentname>c144361d7eda46bfb065bacd5a14ff4b</onclickeventformulacomponentname>
+  <onclickeventformulafunctionname>OnSelect</onclickeventformulafunctionname>
+  <onclickeventtype>1</onclickeventtype>
+  <origin>0</origin>
+  <sequence>100100015.0000000000</sequence>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+  <type>0</type>
+  <visibilityformulacomponentlibraryid>
+    <name>sa_eventmanagementdefaultcommandlibrary_bbbe5</name>
+  </visibilityformulacomponentlibraryid>
+  <visibilityformulacomponentname>c144361d7eda46bfb065bacd5a14ff4b</visibilityformulacomponentname>
+  <visibilityformulafunctionname>Visible</visibilityformulafunctionname>
+  <visibilitytype>1</visibilitytype>
+</appaction>

@@ -1,0 +1,40 @@
+"'Duplicate Records_16' As CommandComponent":
+    AutoSave: =true
+    DataSource: =Templates
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =0
+    Icon: =SampleImage
+    OnSelect: |-
+        =If(
+            CountRows(Self.Selected.AllItems) > 0,
+            If(
+                Confirm(
+                    "Are you sure you want to duplicate " & CountRows(Self.Selected.AllItems) & " records?"
+                ),
+                ForAll(
+                    Self.Selected.AllItems,
+                    Patch(
+                        Templates,
+                        Defaults(Templates),
+                        {
+                            Name: "Copy - " & ThisRecord.Name,
+                            'Body (Plain Text)': ThisRecord.'Body (Plain Text)',
+                            Subject:ThisRecord.Subject
+                        }
+                    )
+                );
+                Navigate('Templates (Views)'.'Draft Templates')
+            )
+        )
+    Selected: |-
+        ={ Item: {}, AllItems:[], Unsaved: false, State: SelectedState.Edit }
+    SelectionMax: =100
+    SelectionMin: =100
+    Title: = 
+    Tooltip: = 
+    Visible: =CountRows(Self.Selected.AllItems) > 0
+    Width: =0
+    X: =0
+    Y: =0
+    ZIndex: =1
+

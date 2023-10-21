@@ -1,0 +1,11 @@
+<environmentvariabledefinition schemaname="sa_DefaultNoEventsTemplateName">
+  <defaultvalue>Default - No Events/Regisration Closed</defaultvalue>
+  <displayname default="Default - No Events Template Name">
+    <label description="Default - No Events Template Name" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.0.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>

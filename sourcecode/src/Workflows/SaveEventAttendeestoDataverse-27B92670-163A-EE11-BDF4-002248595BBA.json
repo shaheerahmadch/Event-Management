@@ -1,0 +1,526 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_microsoftforms": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "sa_sharedmicrosoftforms_3ff66"
+        },
+        "api": {
+          "name": "shared_microsoftforms"
+        }
+      },
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "sa_sharedcommondataserviceforapps_df72c"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_office365": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "sa_sharedoffice365_755b9"
+        },
+        "api": {
+          "name": "shared_office365"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Default - No Events Template Name (sa_DefaultNoEventsTemplateName)": {
+          "defaultValue": "Default - No Events/Regisration Closed",
+          "type": "String",
+          "metadata": {
+            "schemaName": "sa_DefaultNoEventsTemplateName"
+          }
+        }
+      },
+      "triggers": {
+        "When_a_new_response_is_submitted": {
+          "splitOn": "@triggerOutputs()?['body/value']",
+          "metadata": {
+            "operationMetadataId": "6279575d-2b76-4ed2-9734-d66a9f43f01f"
+          },
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_microsoftforms",
+              "operationId": "CreateFormWebhook",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_microsoftforms"
+            },
+            "parameters": {
+              "form_id": "oBzDhDusrk6tEVGdgCM-bwQBweX1RPtGsSxzZ4Wb3s5UOUM4SlA0UE9KVDBJS1hVUjJJNUo2NUhPVC4u"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "actions": {
+        "Get_response_details": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "f6080841-0373-49c9-81f7-786a41f60b72"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_microsoftforms",
+              "operationId": "GetFormResponseById",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_microsoftforms"
+            },
+            "parameters": {
+              "form_id": "oBzDhDusrk6tEVGdgCM-bwQBweX1RPtGsSxzZ4Wb3s5UOUM4SlA0UE9KVDBJS1hVUjJJNUo2NUhPVC4u",
+              "response_id": "@triggerOutputs()?['body/resourceData/responseId']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "List_rows": {
+          "runAfter": {
+            "Initialize_variable": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "c23ca250-448b-42b5-8965-90128ef7d905"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "contacts",
+              "$filter": "emailaddress1 eq '@{outputs('Get_response_details')?['body/r10d2a7c064d14f0daebe970425275ce6']}'"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Condition": {
+          "actions": {
+            "Set_variable": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "f1a576da-86b4-4da0-96e4-5791ba39d805"
+              },
+              "type": "SetVariable",
+              "inputs": {
+                "name": "varContactID",
+                "value": "@{outputs('List_rows')?['body/value']?[0]?['contactid']}"
+              }
+            }
+          },
+          "runAfter": {
+            "List_rows": [
+              "Succeeded"
+            ]
+          },
+          "else": {
+            "actions": {
+              "Add_Attendee": {
+                "runAfter": {},
+                "metadata": {
+                  "operationMetadataId": "bd8ac5ee-627a-4454-8698-9915bacda6cd"
+                },
+                "type": "OpenApiConnection",
+                "inputs": {
+                  "host": {
+                    "connectionName": "shared_commondataserviceforapps",
+                    "operationId": "CreateRecord",
+                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                  },
+                  "parameters": {
+                    "entityName": "contacts",
+                    "item/lastname": "@outputs('Get_response_details')?['body/ra8bfc40455b04f749bafc0021431a4c7']",
+                    "item/emailaddress1": "@outputs('Get_response_details')?['body/r10d2a7c064d14f0daebe970425275ce6']",
+                    "item/firstname": "@outputs('Get_response_details')?['body/r297c2a7b03a7426096d431cdde93bcf6']",
+                    "item/mobilephone": "@outputs('Get_response_details')?['body/r4a940024533641be816ff48bfd86e824']",
+                    "item/sa_subscribedtonewsletter": "@outputs('Get_response_details')?['body/r1f3ad5aa9fd242829dd70e0fb3d735ac']"
+                  },
+                  "authentication": "@parameters('$authentication')"
+                }
+              },
+              "Set_variable_2": {
+                "runAfter": {
+                  "Add_Attendee": [
+                    "Succeeded"
+                  ]
+                },
+                "metadata": {
+                  "operationMetadataId": "5d140ec9-b0a6-46ca-8990-f8ece03e4e3e"
+                },
+                "type": "SetVariable",
+                "inputs": {
+                  "name": "varContactID",
+                  "value": "@outputs('Add_Attendee')?['body/contactid']"
+                }
+              }
+            }
+          },
+          "expression": {
+            "greater": [
+              "@length(outputs('List_rows')?['body/value'])",
+              0
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "26f2c504-7414-47fb-a51e-1895d5dc0693"
+          },
+          "type": "If"
+        },
+        "Initialize_variable": {
+          "runAfter": {
+            "Initialize_variable_2": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "cf603185-b315-4bb0-b6c1-46b15ed6716f"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "varContactID",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "Get_Published_Event": {
+          "runAfter": {
+            "Condition": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "0a681dfd-bc1b-4bcf-94df-16e3828a6135"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "sa_events",
+              "$filter": "(sa_registrationopen eq true and statecode eq 0 and statuscode eq 126380003)",
+              "$top": 1
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Condition_2": {
+          "actions": {
+            "Condition_3": {
+              "actions": {
+                "Get_Email_Template": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "d4227a84-cfed-4c39-976e-f9b69c99a26d"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "GetItem",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "entityName": "sa_templates",
+                      "recordId": "@first(outputs('Get_Published_Event')?['body/value'])?['_sa_templatethankyou_value']"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                },
+                "Send_an_email_(V2)": {
+                  "runAfter": {
+                    "Get_Email_Template": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "a58350f5-deb7-4378-ae38-8415a2897bd4"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_office365",
+                      "operationId": "SendEmailV2",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+                    },
+                    "parameters": {
+                      "emailMessage/To": "@outputs('Get_response_details')?['body/r10d2a7c064d14f0daebe970425275ce6']",
+                      "emailMessage/Subject": "@outputs('Get_Email_Template')?['body/sa_subject']",
+                      "emailMessage/Body": "@outputs('Get_Email_Template')?['body/sa_bodyplaintext']",
+                      "emailMessage/Attachments": [
+                        {
+                          "Name": "Add to Calendar.ics",
+                          "ContentBytes": "BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nURL: @{first(outputs('Get_Published_Event')?['body/value'])?['sa_meetinglink']}\nDTSTART:@{replace(replace(first(outputs('Get_Published_Event')?['body/value'])?['sa_start'],'-',''),':','')}\nDTEND:@{replace(replace(first(outputs('Get_Published_Event')?['body/value'])?['sa_end'],'-',''),':','')}\nSUMMARY:@{first(outputs('Get_Published_Event')?['body/value'])?['sa_name']}\nDESCRIPTION: @{first(outputs('Get_Published_Event')?['body/value'])?['sa_description']}\nLOCATION:@{first(outputs('Get_Published_Event')?['body/value'])?['sa_eventtype@OData.Community.Display.V1.FormattedValue']} @{first(outputs('Get_Published_Event')?['body/value'])?['sa_venue@OData.Community.Display.V1.FormattedValue']\r\n}\nEND:VEVENT\nEND:VCALENDAR"
+                        }
+                      ],
+                      "emailMessage/Importance": "Normal"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                }
+              },
+              "runAfter": {
+                "Condition_4": [
+                  "Succeeded"
+                ]
+              },
+              "expression": {
+                "equals": [
+                  "@empty(first(outputs('Get_Published_Event')?['body/value'])?['_sa_templatethankyou_value'])",
+                  "@false"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "b635ce83-748d-4af2-ab78-730c2d3af017"
+              },
+              "type": "If"
+            },
+            "List_rows_2": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "88be3ce8-9c44-4dd5-93d1-abad1eea6903"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "sa_eventattendees",
+                  "$filter": "(_sa_attendee_value eq @{variables('varContactID')} and _sa_event_value eq @{first(outputs('Get_Published_Event')?['body/value'])?['sa_eventid']})"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Condition_4": {
+              "actions": {
+                "Create_Relationship": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "ac80f15c-8d31-4569-9ae3-44ac310fd55c"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "CreateRecord",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "entityName": "sa_eventattendees",
+                      "item/sa_Attendee@odata.bind": "/contacts(@{variables('varContactID')})",
+                      "item/sa_Event@odata.bind": "/sa_events(@{first(outputs('Get_Published_Event')?['body/value'])?['sa_eventid']})"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                }
+              },
+              "runAfter": {
+                "List_rows_2": [
+                  "Succeeded"
+                ]
+              },
+              "else": {
+                "actions": {
+                  "Condition_5": {
+                    "actions": {
+                      "Get_Exists_Template": {
+                        "runAfter": {},
+                        "metadata": {
+                          "operationMetadataId": "632af94b-db71-4d97-b82c-e3ab6db24aa3"
+                        },
+                        "type": "OpenApiConnection",
+                        "inputs": {
+                          "host": {
+                            "connectionName": "shared_commondataserviceforapps",
+                            "operationId": "GetItem",
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                          },
+                          "parameters": {
+                            "entityName": "sa_templates",
+                            "recordId": "@first(outputs('Get_Published_Event')?['body/value'])?['_sa_templatealreadyexist_value']"
+                          },
+                          "authentication": "@parameters('$authentication')"
+                        }
+                      },
+                      "Send_an_email_(V2)_3": {
+                        "runAfter": {
+                          "Get_Exists_Template": [
+                            "Succeeded"
+                          ]
+                        },
+                        "metadata": {
+                          "operationMetadataId": "20c190b7-f49c-4469-9446-5ef58af93aa5"
+                        },
+                        "type": "OpenApiConnection",
+                        "inputs": {
+                          "host": {
+                            "connectionName": "shared_office365",
+                            "operationId": "SendEmailV2",
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+                          },
+                          "parameters": {
+                            "emailMessage/To": "@outputs('Get_response_details')?['body/r10d2a7c064d14f0daebe970425275ce6']",
+                            "emailMessage/Subject": "@outputs('Get_Exists_Template')?['body/sa_subject']",
+                            "emailMessage/Body": "@outputs('Get_Exists_Template')?['body/sa_bodyplaintext']",
+                            "emailMessage/Importance": "Normal"
+                          },
+                          "authentication": "@parameters('$authentication')"
+                        }
+                      }
+                    },
+                    "runAfter": {},
+                    "expression": {
+                      "equals": [
+                        "@empty(first(outputs('Get_Published_Event')?['body/value'])?['_sa_templatealreadyexist_value'])",
+                        "@false"
+                      ]
+                    },
+                    "metadata": {
+                      "operationMetadataId": "00aa2947-1022-4967-8443-0551e34af371"
+                    },
+                    "type": "If"
+                  }
+                }
+              },
+              "expression": {
+                "equals": [
+                  "@length(outputs('List_rows_2')?['body/value'])",
+                  0
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "aed292f5-7fe0-40a9-8b97-336aeb9948ab"
+              },
+              "type": "If"
+            }
+          },
+          "runAfter": {
+            "Get_Published_Event": [
+              "Succeeded"
+            ]
+          },
+          "else": {
+            "actions": {
+              "List_rows_3": {
+                "runAfter": {},
+                "metadata": {
+                  "operationMetadataId": "694033e3-9360-4a8e-855a-530028d43d48"
+                },
+                "type": "OpenApiConnection",
+                "inputs": {
+                  "host": {
+                    "connectionName": "shared_commondataserviceforapps",
+                    "operationId": "ListRecords",
+                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                  },
+                  "parameters": {
+                    "entityName": "sa_templates",
+                    "$filter": "sa_name eq '@{parameters('Default - No Events Template Name (sa_DefaultNoEventsTemplateName)')}'"
+                  },
+                  "authentication": "@parameters('$authentication')"
+                }
+              },
+              "Condition_6": {
+                "actions": {
+                  "Send_an_email_(V2)_2": {
+                    "runAfter": {},
+                    "metadata": {
+                      "operationMetadataId": "a58350f5-deb7-4378-ae38-8415a2897bd4"
+                    },
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                      "host": {
+                        "connectionName": "shared_office365",
+                        "operationId": "SendEmailV2",
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365"
+                      },
+                      "parameters": {
+                        "emailMessage/To": "@outputs('Get_response_details')?['body/r10d2a7c064d14f0daebe970425275ce6']",
+                        "emailMessage/Subject": "@first(outputs('List_rows_3')?['body/value'])?['sa_subject']",
+                        "emailMessage/Body": "@first(outputs('List_rows_3')?['body/value'])?['sa_bodyplaintext']",
+                        "emailMessage/Importance": "Normal"
+                      },
+                      "authentication": "@parameters('$authentication')"
+                    }
+                  }
+                },
+                "runAfter": {
+                  "List_rows_3": [
+                    "Succeeded"
+                  ]
+                },
+                "expression": {
+                  "greater": [
+                    "@length(outputs('List_rows_3')?['body/value'])",
+                    0
+                  ]
+                },
+                "metadata": {
+                  "operationMetadataId": "08b66717-29da-46ce-a745-535d869564bd"
+                },
+                "type": "If"
+              }
+            }
+          },
+          "expression": {
+            "greater": [
+              "@length(outputs('Get_Published_Event')?['body/value'])",
+              0
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "04916b0f-214b-4087-ae88-29299e01453b"
+          },
+          "type": "If"
+        },
+        "Initialize_variable_2": {
+          "runAfter": {
+            "Get_response_details": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "480034be-8b5c-40eb-8c83-8e5bb6c0e399"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "varArray",
+                "type": "array"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}
